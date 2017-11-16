@@ -11,19 +11,23 @@ class Client
 {
     
     private $client;
-    private $user;
-    private $password;
     
-    public function __construct($user, $password){
-        $this->user = $user;
-        $this->password = $password;
+    
+    public function __construct($certificate, $password, $test = false){
         
-        $this->client = new AsendiaWsdlClient($user, $password);
+        $this->client = new AsendiaWsdlClient($certificate, $password, $test);
     }
     
+    /**
+     * 
+     * @param string $name
+     * @param array $arguments
+     * @return xml soap response
+     * @throws exception
+     */
     public function __call($name, $arguments){
         if(!method_exists($this->client, $name)){
-            throw \Exception('The called method does not excist!');
+            throw \Exception('The called method does not exist!');
         }
         return $this->client->$name($arguments);
     }

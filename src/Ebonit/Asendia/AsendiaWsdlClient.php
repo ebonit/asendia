@@ -7,24 +7,27 @@
 
 namespace Ebonit\Asendia;
 
-use \Ebonit\Asendia\Operation\SendParcelData;
+use Ebonit\Asendia\Operation\SendParcelData;
+use Ebonit\Asendia\Operation\GetParcelLabel;
 
 class AsendiaWsdlClient extends AbstractWsdlClient 
 {
     private $client;
+    private $certificate;
+    
     private $wsdl_test = 'https://webservices-int.post.ch:17002/IN_B2C_TESTxParcel/v1/';
     private $wsdl_live = 'https://webservices.post.ch:17002/IN_B2CxParcel/v1/';
     
     /**
      * dit moet anders..
      */
-    public function __construct($test = true){
+    public function __construct($certificate, $password, $test = false){
         if($test){
             $wsdl = $this->wsdl_test;            
         }else{
             $wsdl = $this->wsdl_live; 
         }
-        $this->client = new \SoapClient($wsdl);
+        $this->client = new \SoapClient($wsdl, ['local_cert' => $certificate, 'password' => $password]);
     }
     
 //    private function inputHeaders(){
@@ -44,23 +47,23 @@ class AsendiaWsdlClient extends AbstractWsdlClient
     }
     
     public function getParcelLabel($arguments){
-
+        return $this->call('ParcelLabelRequest', GetParcelLabel::_getRequestArguments($arguments));
     }
     
     public function closeDispatchList($arguments){
-
+        return $this->call('DispatchListRequest', CloseDispatchList::_getRequestArguments($arguments));
     }
     
     public function getPrePaidLabel($arguments){
-
+        return $this->call('PrePaidLabelRequest', GetPrePaidLabel::_getRequestArguments($arguments));
     }
     
     public function deleteParcel($arguments){
-
+        return $this->call('DeleteParcelRequest', DeleteParcel::_getRequestArguments($arguments));
     }
     
-    public function getevents($arguments){
-
+    public function getEvents($arguments){
+        return $this->call('EventRequest', GetEvents::_getRequestArguments($arguments));
     }
 }
 

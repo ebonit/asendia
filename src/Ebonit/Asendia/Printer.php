@@ -9,20 +9,23 @@
  * 
  */
 
-namespace Ebonit\Centiro;
+namespace Ebonit\Asendia;
+
+use Stiwl\PhpPrintIpp\Lib\CupsPrintIPP;
+use Stiwl\PhpPrintIpp\Lib\PrintIPP;
 
 class Printer
 {
-    private $printer;
     private $host;
     private $port;
     private $queue;
+    private $printer;
     
     /**
      * 
      * @param String $printer
      */
-    public function __construct($printer, $host, $port, $queue){
+    public function __construct($host, $port, $queue, $printer = 'cups'){
         $this->printer = $printer;
         $this->host = $host;
         $this->port = $port;
@@ -35,13 +38,32 @@ class Printer
             return false;
         }
         
-        if($this->printer->printDocument(__DIR__."/Printertest/test{$format}.pdf")){
+        if($this->printDocument(__DIR__."/Printertest/test{$format}.pdf")){
             return true;
         }
         return false;
     }
     
-    public function printDocument($document){
-        
+    /**
+     * 
+     * @param string $pdf, /path/to/the/pdf
+     * @return Boolean
+     * 
+     */
+    public function printDocument($pdf){
+        if($this->printer == 'cups'){
+            $printer = new CupsPrintIPP();
+        }else{
+            $printer = new PrintIPP();
+        }
+        $printer->setLog('', '', 0);
+        $printer->setHost($this->host);
+        $printer->setPrinterURI("ipp://{$this->host}:{$this->port}/{$this->queue}");
+
+        $printer->unsetFormFeed();
+        $printer->setData($pdf);
+
+        $result = $printer->printJob();
+        return $result;
     }
 }

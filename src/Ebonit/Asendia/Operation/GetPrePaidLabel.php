@@ -7,29 +7,29 @@
 
 namespace Ebonit\Asendia\Operation;
 
-use Ebonit\Asendia\Operation\Data\ParcelData;
-use Ebonit\Asendia\Operation\Data\DocumentSettings;
+use \Ebonit\Asendia\Operation\Data\PrePaidData;
+use \Ebonit\Asendia\Operation\Data\DocumentSettings;
 
-class SendParcelData
+class GetPrePaidLabel
 {
-    private static $ParcelData;
-    private static $DocumentSettings = NULL;
-    
+    private static $PrePaidData;
+    private static $DocumentSettings;
     
     public static function _getRequestArguments($arguments){
-        foreach($arguments as $k => $v){
-            if($k == 'ParcelData'){
-                $v = ParcelData::_getRequestArguments($v);
+        
+        foreach($arguments as $k => $v){ 
+            if($k == 'PrePaidData'){
+                $v = PrePaidData::_getRequestArguments($v);
             }
-            
             if($k == 'DocumentSettings'){
                 $v = DocumentSettings::_getRequestArguments($v);
             }
             self::$$k = $v;
         }
-        $array['ParcelData'] = self::$ParcelData;
+        
+        $array['PrePaidData'] = self::$PrePaidData;
         $array['DocumentSettings'] = self::$DocumentSettings;
+        
         return $array;
     }
 }
-
