@@ -1,7 +1,4 @@
 {
-    "name": "ebonit/asendia",
-    "description": "SOAP client for Asendia Benelux",
-    "license": "Commercial",
     "repositories": [
         {
             "type": "package",
@@ -9,28 +6,16 @@
                 "name": "ebonit/asendia",
                 "version": "dev-master",
                 "source": {
-                    "url": "https://github.com/ebonit/asendia.git",
+                    "url": "https://gitlab.com/ebonit/asendia.git",
                     "type": "git",
                     "reference": "master"
                 },
                 "autoload": {
                     "psr-0" : {
-                        "Ebonit\\Asendia" : "src"
+                        "Ebonit\\Centiro" : "src"
                     }
                 }
             }
         }
-    ],
-    "require": {
-        "stiwl/php-print-ipp": "1.1.*"
-    },
-    "authors": [
-        {
-            "name": "Eric Bontenbal",
-            "email": "info@ericbontenbal.nl",
-            "homepage": "http://www.ericbontenbal.nl",
-            "role": "Developer"
-        }
     ]
-
 }
