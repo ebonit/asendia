@@ -1,21 +1,11 @@
 {
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "ebonit/asendia",
-                "version": "dev-master",
-                "source": {
-                    "url": "https://gitlab.com/ebonit/asendia.git",
-                    "type": "git",
-                    "reference": "master"
-                },
-                "autoload": {
-                    "psr-0" : {
-                        "Ebonit\\Centiro" : "src"
-                    }
-                }
-            }
+    "name": "ebonit/asendia",  
+    "require": {
+        "stiwl/php-print-ipp": "^1.1@dev"
+    },              
+    "autoload": {
+        "psr-0" : {
+            "Ebonit\\Asendia" : "src"
         }
-    ]
+    }
 }
