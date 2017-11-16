@@ -4,7 +4,7 @@
             "type": "package",
             "package": {
                 "name": "ebonit/asendia",
-                "version": "dev",
+                "version": "dev-master",
                 "source": {
                     "url": "https://gitlab.com/ebonit/asendia.git",
                     "type": "git",
