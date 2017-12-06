@@ -19,17 +19,23 @@ class SendParcelData
     public static function _getRequestArguments($arguments){
         foreach($arguments as $k => $v){
             if($k == 'ParcelData'){
-                $v = ParcelData::_getRequestArguments($v);
+                $v = ParcelData::_getRequestArguments($arguments['ParcelData']);
+                //exit();
             }
             
             if($k == 'DocumentSettings'){
-                $v = DocumentSettings::_getRequestArguments($v);
+                $v = DocumentSettings::_getRequestArguments($arguments['DocumentSettings']);
             }
             self::$$k = $v;
+        }  
+
+        if(NULL === self::$DocumentSettings){
+            self::$DocumentSettings = DocumentSettings::_getRequestArguments();
         }
         $array['ParcelData'] = self::$ParcelData;
         $array['DocumentSettings'] = self::$DocumentSettings;
         return $array;
+        
     }
 }
 

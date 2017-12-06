@@ -19,18 +19,41 @@ class CN22Position
     public static $Value = NULL;
     
     public static function _getRequestArguments($arguments = null){
+        $array = NULL;
         if($arguments){
             foreach($arguments as $k => $v){
                 self::$$k = $v;
             }
         }
+        
+        if(NULL !== self::$Position){
         $array['Position'] = self::$Position;
+        }
+        
+        if(NULL !== self::$HSTarifNumber){
         $array['HSTarifNumber'] = self::$HSTarifNumber;
+        }
+        
+        if(NULL !== self::$OriginCountry){
         $array['OriginCountry'] = self::$OriginCountry;
+        }
+        
+        if(NULL !== self::$Description){
         $array['Description'] = self::$Description;
+        }
+        
+        if(NULL !== self::$Quantity){
         $array['Quantity'] = self::$Quantity;
+        }
+        
+        if(NULL !== self::$Weight){
         $array['Weight'] = self::$Weight;
+        }
+        
+        if(NULL !== self::$Value){
         $array['Value'] = self::$Value;
+        }
+        
         return $array;
     }
 }

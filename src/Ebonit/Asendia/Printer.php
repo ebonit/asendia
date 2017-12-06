@@ -1,6 +1,6 @@
 <?php
 /*
- *  Centiro shipment API Client
+ *  Asendia shipment API Client
  * 
  *  (c) Eric Bontenbal web development <info@ericbontenbal.nl>
  * 
@@ -21,6 +21,11 @@ class Printer
     private $queue;
     private $printer;
     
+    private $logactive = false;
+    private $logdestination;
+    private $logtype; //fi 'file'
+    private $loglevel; //1-3
+    
     /**
      * 
      * @param String $printer
@@ -30,6 +35,13 @@ class Printer
         $this->host = $host;
         $this->port = $port;
         $this->queue = $queue;
+    }
+    
+    public function setLog($active, $destination, $destinationType, $level){
+        $this->logactive = $active;
+        $this->logdestination = $destination;
+        $this->logtype = $destinationType;
+        $this->loglevel = $level;
     }
     
     public function test($format = 'A6'){
@@ -56,7 +68,9 @@ class Printer
         }else{
             $printer = new PrintIPP();
         }
-        $printer->setLog('', '', 0);
+        if($this->logactive){
+            $printer->setLog($this->logdestination, $this->logtype, $this->loglevel);
+        }
         $printer->setHost($this->host);
         $printer->setPrinterURI("ipp://{$this->host}:{$this->port}/{$this->queue}");
 

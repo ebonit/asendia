@@ -13,9 +13,9 @@ class Client
     private $client;
     
     
-    public function __construct($certificate, $password, $test = false){
+    public function __construct($certificate, $password, $test = false, $wsdl = null){
         
-        $this->client = new AsendiaWsdlClient($certificate, $password, $test);
+        $this->client = new AsendiaWsdlClient($certificate, $password, $test, $wsdl);
     }
     
     /**

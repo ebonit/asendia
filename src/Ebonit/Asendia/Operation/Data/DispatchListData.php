@@ -1,6 +1,6 @@
 <?php
 /*
- *  Centiro shipment API Client
+ *  Asendia shipment API Client
  * 
  *  (c) Eric Bontenbal web development <info@ericbontenbal.nl>
  * 

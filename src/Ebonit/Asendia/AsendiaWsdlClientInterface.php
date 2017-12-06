@@ -9,7 +9,7 @@ namespace Ebonit\Asendia;
 
 interface AsendiaWsdlClientInterface
 {
-    public function connectionTest($arguments);
+    public function connectionTest();
     
     public function sendParcelData($arguments);
     

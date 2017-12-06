@@ -10,7 +10,7 @@ namespace Ebonit\Asendia;
 abstract class AbstractWsdlClient implements AsendiaWsdlClientInterface
 {
     
-    public function connectionTest($arguments){}
+    public function connectionTest(){}
     
     public function sendParcelData($arguments){}
     

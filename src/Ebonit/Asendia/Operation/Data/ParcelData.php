@@ -16,7 +16,8 @@ class ParcelData
     private static $Recipient;
     private static $ItemInformation;
     private static $BasicService = 'FT';
-    private static $AdditionalService = '72 42';
+    private static $AdditionalService = '72';
+    private static $AdditionalService2 = '42';
     private static $AdditionalServiceReturn = NULL;
     private static $Content = NULL;
     private static $Currency = 'EUR';
@@ -24,7 +25,6 @@ class ParcelData
     
     
     public static function _getRequestArguments($arguments){
-        
         foreach($arguments as $k => $v){
             if($k == 'Recipient'){
                 $v = Recipient::_getRequestArguments($v);
@@ -39,6 +39,9 @@ class ParcelData
                     throw \Exception("The Currency is not allowed!");
                 }
             }
+            if($k =='CN22Position'){
+                $v = CN22Position::_getRequestArguments($v);
+            }
             self::$$k = $v;
         }
         
@@ -47,10 +50,17 @@ class ParcelData
         $array['ItemInformation'] = self::$ItemInformation;
         $array['BasicService'] = self::$BasicService;
         $array['AdditionalService'] = self::$AdditionalService;
-        $array['AdditionalServiceReturn'] = self::$AdditionalServiceReturn;
-        $array['Content'] = self::$Content;
+        //$array[]['AdditionalService'] = self::$AdditionalService2;
+        if(NULL !== self::$AdditionalServiceReturn){
+            $array['AdditionalServiceReturn'] = self::$AdditionalServiceReturn;
+        }
+        if(NULL !== self::$Content){
+            $array['Content'] = self::$Content;
+        }
         $array['Currency'] = self::$Currency;
-        $array['CN22Position'] = self::$CN22Position;
+        if(NULL !== self::$CN22Position){
+            $array['CN22Position'] = self::$CN22Position;
+        }
         return $array;
     }
     
