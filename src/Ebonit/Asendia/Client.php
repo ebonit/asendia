@@ -29,6 +29,6 @@ class Client
         if(!method_exists($this->client, $name)){
             throw \Exception('The called method does not exist!');
         }
-        return $this->client->$name($arguments);
+        return $this->client->$name($arguments[0]);
     }
 }
