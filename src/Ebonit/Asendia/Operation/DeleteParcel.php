@@ -20,7 +20,9 @@ class GetParcelLabel
             self::$$k = $v;
         }
         $array['Reason'] = self::$Reason;
-        $array['Remarks'] = self::$Remarks;
+        if(NULL !== self::$Remarks){
+            $array['Remarks'] = self::$Remarks;
+        }        
         $array['Reference'] = self::$Reference;
         return $array;
     }
