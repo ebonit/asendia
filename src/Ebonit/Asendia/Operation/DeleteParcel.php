@@ -8,7 +8,7 @@
 namespace Ebonit\Asendia\Operation;
 
 
-class GetParcelLabel
+class DeleteParcel
 {
     
     private static $Reason = 'IEN'; 
