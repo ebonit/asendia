@@ -16,15 +16,10 @@ use Ebonit\Asendia\Operation\GetEvents;
 
 class AsendiaWsdlClient extends AbstractWsdlClient 
 {
-    private $client;
-    private $certificate;
-    
+    private $client;   
     private $wsdl_test = 'https://webservices-int.post.ch:17002/IN_B2C_TESTxParcel/v1/';
-    private $wsdl_live = 'https://webservices.post.ch:17002/IN_B2CxParcel/v1/';
+    private $wsdl_live = 'https://webservices.post.ch:17002/IN_B2CxParcel/v1/';    
     
-    /**
-     * dit moet anders..
-     */
     public function __construct($certificate, $password, $test = false, $wsdl = null){
         if(null === $wsdl){
             if($test){
@@ -47,13 +42,11 @@ class AsendiaWsdlClient extends AbstractWsdlClient
         $options['passphrase'] = $password;
         $options['soap_version'] = SOAP_1_1;//important: Asendia uses soap version 1
         $options['location'] = $location;
-        
+
         try{
             $this->client = new \SoapClient($wsdl, $options);
-        }
-        catch (\Exception $e)
-        {
-            die( $e->getMessage() . '<br />' . $e->getTraceAsString());
+        }catch (\Exception $e){
+            error_log( __FILE__.__LINE__ . PHP_EOL . $e->__toString());
         }
     }
     
@@ -64,16 +57,15 @@ class AsendiaWsdlClient extends AbstractWsdlClient
 
         try{
             $result = $this->client->$request($arguments);
-        } catch (\Exception $e)
-        {
-            echo var_export($this->client->__getLastRequest(),1);
-            die( __FILE__.__LINE__. "<br/>\n" . $e->__toString() );
+        } catch (\Exception $e){
+            error_log(var_export($this->client->__getLastRequest(),1));
+            error_log( __FILE__.__LINE__ . PHP_EOL . $e->__toString() );
         }
         if($result->ResponseStatus !== 'OK'){
             $messages = '';
             if(is_array($result->LabelStatus->ErrorMessage)){
                 foreach($result->LabelStatus->ErrorMessage as $message){
-                    $messages .= $message->Message . "<br />\n";
+                    $messages .= $message->Message . "<br/>" . PHP_EOL;
                 }
             }else{
                 $messages = $result->LabelStatus->ErrorMessage->Message . "<br/>".PHP_EOL;
@@ -92,7 +84,7 @@ class AsendiaWsdlClient extends AbstractWsdlClient
             $result = $this->call('connectionTest', null);
             return $result;
         } catch (\Exception $ex) {
-            die(__FILE__.__LINE__. "<br/>\n" . $ex->__toString());
+            error_Log(__FILE__.__LINE__ . PHP_EOL . $ex->__toString());
         }
     }
     
@@ -124,4 +116,5 @@ class AsendiaWsdlClient extends AbstractWsdlClient
         return $this->client->__getFunctions();
     }
 }
+
 
