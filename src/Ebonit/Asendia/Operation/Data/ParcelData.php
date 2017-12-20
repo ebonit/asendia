@@ -16,8 +16,7 @@ class ParcelData
     private static $Recipient;
     private static $ItemInformation;
     private static $BasicService = 'FT';
-    private static $AdditionalService = '72';
-    private static $AdditionalService2 = '42';
+    private static $AdditionalService = ['72', '42'];
     private static $AdditionalServiceReturn = NULL;
     private static $Content = NULL;
     private static $Currency = 'EUR';
@@ -42,7 +41,12 @@ class ParcelData
             if($k =='CN22Position'){
                 $v = CN22Position::_getRequestArguments($v);
             }
-            self::$$k = $v;
+            
+            if($k == 'AdditionalService'){
+                self::$AdditionalService[] = $v;
+            }else{
+                self::$$k = $v;
+            }
         }
         
         $array['Reference'] = self::$Reference;
@@ -50,7 +54,6 @@ class ParcelData
         $array['ItemInformation'] = self::$ItemInformation;
         $array['BasicService'] = self::$BasicService;
         $array['AdditionalService'] = self::$AdditionalService;
-        //$array[]['AdditionalService'] = self::$AdditionalService2;
         if(NULL !== self::$AdditionalServiceReturn){
             $array['AdditionalServiceReturn'] = self::$AdditionalServiceReturn;
         }
