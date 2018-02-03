@@ -60,6 +60,8 @@ class AsendiaWsdlClient extends AbstractWsdlClient
         } catch (\Exception $e){
             error_log(var_export($this->client->__getLastRequest(),1));
             error_log( __FILE__.__LINE__ . PHP_EOL . $e->__toString() );
+			$returnValue['error'] = $e->getMessage();
+			return $returnValue;
         }
         if($result->ResponseStatus !== 'OK'){
             $messages = '';
